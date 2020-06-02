@@ -5,3 +5,7 @@ int main(void) {
     printf("cough\n");
   }
 }
+
+void cough(void) {
+  printf("cough\n");
+}
