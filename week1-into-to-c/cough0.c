@@ -2,19 +2,18 @@
 
 // List of Functions used in app
 
-void cough(void);
+void cough(int n);
 
 // Main App
 
 int main(void) {
-  // for loop to print cough 3 times
-  for (int i = 0; i < 3; i++) {
-    cough();
-  }
+  cough(3);
 }
 
 // custom function to print cough
 
-void cough(void) {
-  printf("cough\n");
+void cough(int n) {
+  for (int i = 0; i < n; i++) {
+    printf("cough\n");
+  }
 }
