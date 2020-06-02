@@ -7,13 +7,8 @@ void cough(void) {
 }
 
 int main(void) {
-  /*
-  for loop to print cough 3 times
+  // for loop to print cough 3 times
   for (int i = 0; i < 3; i++) {
-    printf("cough\n");
+    cough();
   }
-  */
-  cough();
-  cough();
-  cough();
 }
