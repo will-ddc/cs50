@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+// custom function to print cough
+
+void cough(void) {
+  printf("cough\n");
+}
+
 int main(void) {
   /*
   for loop to print cough 3 times
@@ -10,10 +16,4 @@ int main(void) {
   cough();
   cough();
   cough();
-}
-
-// custom function to print cough
-
-void cough(void) {
-  printf("cough\n");
 }
