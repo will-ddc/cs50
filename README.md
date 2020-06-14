@@ -7,3 +7,5 @@
 Started Intro into C language and concepts of programming
 
 Created a hello world app in c
+
+## Week 2 -
