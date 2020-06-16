@@ -8,7 +8,7 @@ int main(void) {
 
   for (int i = 0; i < 4; i++) {
     if (strcmp(names[i], "EMMA") == 0) {
-      printf("%s\n", number[i]);
+      printf("%s\n", numbers[i]);
       return 0;
     }
   }
