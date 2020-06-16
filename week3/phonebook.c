@@ -12,8 +12,19 @@ typedef struct {
 person;
 
 int main(void) {
-  string names[4] = {"ARCHER", "LANA", "CARTMENT", "KENNY"};
-  string numbers[4] = {"555-420-1200", "555-420-1210", "555-420-1220", "555-420-1230"};
+
+  person people[4];
+  people[0].name = "ARCHER";
+  people[0].number = "555-420-1200";
+
+  people[1].name = "LANA";
+  people[1].number = "555-420-1210";
+
+  people[2].name = "CARTMEN";
+  people[2].number = "555-420-1220";
+  
+  people[3].name = "KENNY";
+  people[3].number = "555-420-1230";
 
   for (int i = 0; i < 4; i++) {
     if (strcmp(names[i], "KENNY") == 0) {
