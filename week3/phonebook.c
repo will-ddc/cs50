@@ -7,7 +7,7 @@ int main(void) {
   string numbers[4] = {"555-420-1200", "555-420-1210", "555-420-1220", "555-420-1230"};
 
   for (int i = 0; i < 4; i++) {
-    if (strcmp(names[i], "EMMA") == 0) {
+    if (strcmp(names[i], "KENNY") == 0) {
       printf("%s\n", numbers[i]);
       return 0;
     }
