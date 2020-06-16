@@ -14,6 +14,7 @@ person;
 int main(void) {
 
   person people[4];
+
   people[0].name = "ARCHER";
   people[0].number = "555-420-1200";
 
@@ -22,13 +23,13 @@ int main(void) {
 
   people[2].name = "CARTMEN";
   people[2].number = "555-420-1220";
-  
+
   people[3].name = "KENNY";
   people[3].number = "555-420-1230";
 
   for (int i = 0; i < 4; i++) {
-    if (strcmp(names[i], "KENNY") == 0) {
-      printf("%s Phone #: %s\n", names[i], numbers[i]);
+    if (strcmp(people[i].name, "CARTMEN") == 0) {
+      printf("%s Phone #: %s\n", people[i].name, people[i].number);
       return 0;
     }
   }
