@@ -119,4 +119,170 @@ INVALID
 
 ## Week 2 -
 
+### Problem Sets
+
+1. Readability
+Implement a program that computes the approximate grade level needed to comprehend some text, per the below.
+
+$ ./readability
+Text: Congratulations! Today is your day. You're off to Great Places! You're off and away!
+Grade 3
+
+Reading Levels
+
+According to Scholastic, E.B. White’s “Charlotte’s Web” is between a second and fourth grade reading level, and Lois Lowry’s “The Giver” is between an eighth grade reading level and a twelfth grade reading level. What does it mean, though, for a book to be at a “fourth grade reading level”?
+
+Well, in many cases, a human expert might read a book and make a decision on the grade for which they think the book is most appropriate. But you could also imagine an algorithm attempting to figure out what the reading level of a text is.
+
+So what sorts of traits are characteristic of higher reading levels? Well, longer words probably correlate with higher reading levels. Likewise, longer sentences probably correlate with higher reading levels, too. A number of “readability tests” have been developed over the years, to give a formulaic process for computing the reading level of a text.
+
+One such readability test is the Coleman-Liau index. The Coleman-Liau index of a text is designed to output what (U.S.) grade level is needed to understand the text. The formula is:
+
+index = 0.0588 * L - 0.296 * S - 15.8
+
+Here, L is the average number of letters per 100 words in the text, and S is the average number of sentences per 100 words in the text.
+
+Let’s write a program called readability that takes a text and determines its reading level. For example, if user types in a line from Dr. Seuss:
+
+$ ./readability
+Text: Congratulations! Today is your day. You're off to Great Places! You're off and away!
+Grade 3
+
+The text the user inputted has 65 letters, 4 sentences, and 14 words. 65 letters per 14 words is an average of about 464.29 letters per 100 words. And 4 sentences per 14 words is an average of about 28.57 sentences per 100 words. Plugged into the Coleman-Liau formula, and rounded to the nearest whole number, we get an answer of 3: so this passage is at a third grade reading level.
+
+Let’s try another one:
+
+$ ./readability
+Text: Harry Potter was a highly unusual boy in many ways. For one thing, he hated the summer holidays more than any other time of year. For another, he really wanted to do his homework, but was forced to do it in secret, in the dead of the night. And he also happened to be a wizard.
+Grade 5
+
+This text has 214 letters, 4 sentences, and 56 words. That comes out to about 382.14 letters per 100 words, and 7.14 sentences per 100 words. Plugged into the Coleman-Liau formula, we get a fifth grade reading level.
+
+As the average number of letters and words per sentence increases, the Coleman-Liau index gives the text a higher reading level. If you were to take this paragraph, for instance, which has longer words and sentences than either of the prior two examples, the formula would give the text an eleventh grade reading level.
+
+$ ./readability
+Text: As the average number of letters and words per sentence increases, the Coleman-Liau index gives the text a higher reading level. If you were to take this paragraph, for instance, which has longer words and sentences than either of the prior two examples, the formula would give the text an eleventh grade reading level.
+Grade 11
+
+Specification
+
+Design and implement a program, readability, that computes the Coleman-Liau index of the text.
+
+    Implement your program in a file called readability.c in a ~/pset2/readability directory.
+    Your program must prompt the user for a string of text (using get_string).
+    Your program should count the number of letters, words, and sentences in the text. You may assume that a letter is any lowercase character from a to z or any uppercase character from A to Z, any sequence of characters separated by spaces should count as a word, and that any occurrence of a period, exclamation point, or question mark indicates the end of a sentence.
+    Your program should print as output "Grade X" where X is the grade level computed by the Coleman-Liau formula, rounded to the nearest integer.
+    If the resulting index number is 16 or higher (equivalent to or greater than a senior undergraduate reading level), your program should output "Grade 16+" instead of giving the exact index number. If the index number is less than 1, your program should output "Before Grade 1".
+
+2. Caesar - basic
+Implement a program that encrypts messages using Caesar’s cipher, per the below.
+
+$ ./caesar 13
+plaintext:  HELLO
+ciphertext: URYYB
+
+Background
+
+Supposedly, Caesar (yes, that Caesar) used to “encrypt” (i.e., conceal in a reversible way) confidential messages by shifting each letter therein by some number of places. For instance, he might write A as B, B as C, C as D, …, and, wrapping around alphabetically, Z as A. And so, to say HELLO to someone, Caesar might write IFMMP. Upon receiving such messages from Caesar, recipients would have to “decrypt” them by shifting letters in the opposite direction by the same number of places.
+
+The secrecy of this “cryptosystem” relied on only Caesar and the recipients knowing a secret, the number of places by which Caesar had shifted his letters (e.g., 1). Not particularly secure by modern standards, but, hey, if you’re perhaps the first in the world to do it, pretty secure!
+
+Unencrypted text is generally called plaintext. Encrypted text is generally called ciphertext. And the secret used is called a key.
+
+To be clear, then, here’s how encrypting HELLO with a key of 1 yields IFMMP:
+plaintext 	H 	E 	L 	L 	O
++ key 	1 	1 	1 	1 	1
+= ciphertext 	I 	F 	M 	M 	P
+
+More formally, Caesar’s algorithm (i.e., cipher) encrypts messages by “rotating” each letter by k positions. More formally, if p is some plaintext (i.e., an unencrypted message), pi is the ith character in p, and k is a secret key (i.e., a non-negative integer), then each letter, ci, in the ciphertext, c, is computed as
+
+ci = (pi + k) % 26
+
+wherein % 26 here means “remainder when dividing by 26.” This formula perhaps makes the cipher seem more complicated than it is, but it’s really just a concise way of expressing the algorithm precisely. Indeed, for the sake of discussion, think of A (or a) as 0, B (or b) as 1, …, H (or h) as 7, I (or i) as 8, …, and Z (or z) as 25. Suppose that Caesar just wants to say Hi to someone confidentially using, this time, a key, k, of 3. And so his plaintext, p, is Hi, in which case his plaintext’s first character, p0, is H (aka 7), and his plaintext’s second character, p1, is i (aka 8). His ciphertext’s first character, c0, is thus K, and his ciphertext’s second character, c1, is thus L. Can you see why?
+
+Let’s write a program called caesar that enables you to encrypt messages using Caesar’s cipher. At the time the user executes the program, they should decide, by providing a command-line argument, on what the key should be in the secret message they’ll provide at runtime. We shouldn’t necessarily assume that the user’s key is going to be a number; though you may assume that, if it is a number, it will be a positive integer.
+
+Here are a few examples of how the program might work. For example, if the user inputs a key of 1 and a plaintext of HELLO:
+
+$ ./caesar 1
+plaintext:  HELLO
+ciphertext: IFMMP
+
+Here’s how the program might work if the user provides a key of 13 and a plaintext of hello, world:
+
+$ ./caesar 13
+plaintext:  hello, world
+ciphertext: uryyb, jbeyq
+
+Notice that neither the comma nor the space were “shifted” by the cipher. Only rotate alphabetical characters!
+
+How about one more? Here’s how the program might work if the user provides a key of 13 again, with a more complex plaintext:
+
+$ ./caesar 13
+plaintext:  be sure to drink your Ovaltine
+ciphertext: or fher gb qevax lbhe Binygvar
+
+
+3. Substitution - advanced
+Implement a program that implements a substitution cipher, per the below.
+
+$ ./substitution JTREKYAVOGDXPSNCUIZLFBMWHQ
+plaintext:  HELLO
+ciphertext: VKXXN
+
+Background
+
+In a substitution cipher, we “encrypt” (i.e., conceal in a reversible way) a message by replacing every letter with another letter. To do so, we use a key: in this case, a mapping of each of the letters of the alphabet to the letter it should correspond to when we encrypt it. To “decrypt” the message, the receiver of the message would need to know the key, so that they can reverse the process: translating the encrypt text (generally called ciphertext) back into the original message (generally called plaintext).
+
+A key, for example, might be the string NQXPOMAFTRHLZGECYJIUWSKDVB. This 26-character key means that A (the first letter of the alphabet) should be converted into N (the first character of the key), B (the second letter of the alphabet) should be converted into Q (the second character of the key), and so forth.
+
+A message like HELLO, then, would be encrypted as FOLLE, replacing each of the letters according to the mapping determined by the key.
+
+Let’s write a program called substitution that enables you to encrypt messages using a substitution cipher. At the time the user executes the program, they should decide, by providing a command-line argument, on what the key should be in the secret message they’ll provide at runtime.
+
+Here are a few examples of how the program might work. For example, if the user inputs a key of YTNSHKVEFXRBAUQZCLWDMIPGJO and a plaintext of HELLO:
+
+$ ./substitution YTNSHKVEFXRBAUQZCLWDMIPGJO
+plaintext:  HELLO
+ciphertext: EHBBQ
+
+Here’s how the program might work if the user provides a key of VCHPRZGJNTLSKFBDQWAXEUYMOI and a plaintext of hello, world:
+
+$ ./substitution VCHPRZGJNTLSKFBDQWAXEUYMOI
+plaintext:  hello, world
+ciphertext: jrssb, ybwsp
+
+Notice that neither the comma nor the space were substituted by the cipher. Only substitute alphabetical characters! Notice, too, that the case of the original message has been preserved. Lowercase letters remain lowercase, and uppercase letters remain uppercase.
+
+Whether the characters in the key itself are uppercase or lowercase doesn’t matter. A key of VCHPRZGJNTLSKFBDQWAXEUYMOI is functionally identical to a key of vchprzgjntlskfbdqwaxeuymoi (as is, for that matter, VcHpRzGjNtLsKfBdQwAxEuYmOi).
+
+And what if a user doesn’t provide a valid key?
+
+$ ./substitution ABC
+Key must contain 26 characters.
+
+Or really doesn’t cooperate?
+
+$ ./substitution
+Usage: ./substitution key
+
+Or even…
+
+$ ./substitution 1 2 3
+Usage: ./substitution key
+
+Specification
+
+Design and implement a program, substitution, that encrypts messages using a substitution cipher.
+
+    Implement your program in a file called substitution.c in a ~/pset2/substitution directory.
+    Your program must accept a single command-line argument, the key to use for the substitution. The key itself should be case-insensitive, so whether any character in the key is uppercase or lowercase should not affect the behavior of your program.
+    If your program is executed without any command-line arguments or with more than one command-line argument, your program should print an error message of your choice (with printf) and return from main a value of 1 (which tends to signify an error) immediately.
+    If the key is invalid (as by not containing 26 characters, containing any character that is not an alphabetic character, or not containing each letter exactly once), your program should print an error message of your choice (with printf) and return from main a value of 1 immediately.
+    Your program must output plaintext: (without a newline) and then prompt the user for a string of plaintext (using get_string).
+    Your program must output ciphertext: (without a newline) followed by the plaintext’s corresponding ciphertext, with each alphabetical character in the plaintext substituted for the corresponding character in the ciphertext; non-alphabetical characters should be outputted unchanged.
+    Your program must preserve case: capitalized letters must remain capitalized letters; lowercase letters must remain lowercase letters.
+    After outputting ciphertext, you should print a newline. Your program should then exit by returning 0 from main.
+
+
 ## Week 3 - Algorithms
