@@ -17,3 +17,9 @@ int main(void) {
     printf("%i is odd\n", n);
   }
 }
+
+
+int main(int argc, char const *argv[]) {
+  /* code */
+  return 0;
+}

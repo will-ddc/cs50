@@ -10,6 +10,10 @@ int main(void) {
   cough(3);
 }
 
+switch (/* expression */) {
+  case /* value */:
+}
+
 // custom function to print cough
 
 void cough(int n) {
