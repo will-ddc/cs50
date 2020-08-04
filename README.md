@@ -315,3 +315,48 @@ Complete the implementation of plurality.c in such a way that the program simula
         It is possible that the election could end in a tie if multiple candidates each have the maximum number of votes. In that case, you should output the names of each of the winning candidates, each on a separate line.
 
 You should not modify anything else in plurality.c other than the implementations of the vote and print_winner functions (and the inclusion of additional header files, if you’d like).
+
+2) Runoff - basic
+
+Implement a program that runs a runoff election, per the below.
+
+./runoff Alice Bob Charlie
+Number of voters: 5
+Rank 1: Alice
+Rank 2: Bob
+Rank 3: Charlie
+
+Rank 1: Alice
+Rank 2: Charlie
+Rank 3: Bob
+
+Rank 1: Bob
+Rank 2: Charlie
+Rank 3: Alice
+
+Rank 1: Bob
+Rank 2: Alice
+Rank 3: Charlie
+
+Rank 1: Charlie
+Rank 2: Alice
+Rank 3: Bob
+
+Alice
+
+Specification
+
+Complete the implementation of runoff.c in such a way that it simulates a runoff election. You should complete the implementations of the vote, tabulate, print_winner, find_min, is_tie, and eliminate functions, and you should not modify anything else in runoff.c (except you may include additional header files, if you’d like).
+vote
+
+Complete the vote function.
+
+    The function takes arguments voter, rank, and name. If name is a match for the name of a valid candidate, then you should update the global preferences array to indicate that the voter voter has that candidate as their rank preference (where 0 is the first preference, 1 is the second preference, etc.).
+    If the preference is successfully recorded, the function should return true; the function should return false otherwise (if, for instance, name is not the name of one of the candidates).
+    You may assume that no two candidates will have the same name.
+
+** Vote Function Hints **
+
+
+
+3) Tideman - advanced
