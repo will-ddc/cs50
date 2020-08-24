@@ -361,6 +361,9 @@ Complete the vote function.
 
 3) Tideman - advanced
 
+makes use of the Tideman algorithm
+
+
 Understanding
 
 Let’s open up tideman.c to take a look at what’s already there.
