@@ -103,8 +103,8 @@ bool vote(int rank, string name, int ranks[])
   // Loop over candidates
   for (int i = 0; i < candidate_count; i++)
   {
-      // if submitted name is valid add index of candidate to preferences[i][j]
-      if (strcmp(candidates[i].name, name) == 0)
+      // if submitted name is valid add index of candidate to ranks[rank]
+      if (strcmp(candidates[i], name) == 0)
       {
           ranks[rank] = i;
           return true;
@@ -116,13 +116,15 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-  // Loop over candidates
+  // Loop over ranks array
   for (int i = 0; i < candidate_count; i++)
   {
+    // loop through candidates
     for (int j = 0; j < candidate_count; j++)
     {
-      if (candidates[ranks[i]].name == candidates[j].name)
-        preferences[][i] = j;
+      // if ranks[i] matches candidates[j] and 1 to it
+      if (candidates[ranks[i]] == candidates[j])
+        preferences[i][j]++;
     }
   }
 }
