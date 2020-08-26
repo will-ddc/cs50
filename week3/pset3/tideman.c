@@ -151,15 +151,15 @@ void add_pairs(void)
       // loop inner preferences to compare candidates
       for (int k = i + 1; k < candidate_count; k++)
       {
-        if (preferences[i][j] > preferences[j][i])
+        if (preferences[i][k] > preferences[k][i])
         {
           pairs[i].winner = i;
-          pairs[i].loser = j;
+          pairs[i].loser = k;
           pair_count++;
         }
         else
         {
-          pairs[i].winner = j;
+          pairs[i].winner = k;
           pairs[i].loser = i;
           pair_count++;
         }
@@ -180,12 +180,12 @@ void sort_pairs(void)
       for (int k = i + 1; k < pair_count; k++)
       {
         // initailize variables to hold win margin of pairs[j]
-        int win2 = preferences[pairs[j].winner][pairs[j].loser] - preferences[pairs[j].loser][pairs[j].winner];
+        int win2 = preferences[pairs[k].winner][pairs[k].loser] - preferences[pairs[j].loser][pairs[j].winner];
 
         // if win2 margin is bigger than win1 swap spots
         if (win2 > win1)
         {
-          swap_pairs(i, j);
+          swap_pairs(i, k);
         }
 
       }
