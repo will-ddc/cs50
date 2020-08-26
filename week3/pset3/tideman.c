@@ -34,6 +34,7 @@ void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
 bool check_used_names(string used_names[], string name);
+void swap_pairs(int a, int b);
 
 int main(int argc, string argv[])
 {
@@ -170,7 +171,26 @@ void add_pairs(void)
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
+    // loop over pairs
+    for (int i = 0, j = pair_count - 1; i < j; i++)
+    {
+      // initailize variables to hold win margin of pairs[i]
+      int win1 = preferences[pairs[i].winner][pairs[i].loser] - preferences[pairs[i].loser][pairs[i].winner]
+      // loop over pairs to sort in decreasing order of strength of victory
+      for (int k = i + 1; k < pair_count; k++)
+      {
+        // initailize variables to hold win margin of pairs[j]
+        int win2 = preferences[pairs[j].winner][pairs[j].loser] - preferences[pairs[j].loser][pairs[j].winner]
+
+        // if win2 margin is bigger than win1 swap spots
+        if (win2 > win1)
+        {
+          swap_pairs(i, j);
+        }
+
+      }
+    }
+
     return;
 }
 
@@ -197,4 +217,14 @@ bool check_used_names(string used_names[], string name)
             return true;
     }
     return false;
+}
+
+void swap_pairs(int a, int b)
+{
+  // initalize pair to hold the first pair
+  pair temp[0] = pairs[a];
+  // set new pair in place
+  pairs[a] = pairs[b];
+  pairs[b] = temp[0];
+  return;
 }
