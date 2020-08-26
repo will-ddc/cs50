@@ -33,6 +33,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+bool check_used_names(string used_names[], string name);
 
 int main(int argc, string argv[])
 {
@@ -116,23 +117,40 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-  // Loop over ranks array
+    // initalize string array to hold used candidate names
+    string used_names[candidate_count];
+
+    // Loop over ranks array
   for (int i = 0; i < candidate_count; i++)
   {
-    // loop through candidates
+    // loop over candidates to match candidate[j] to ranks[i]
     for (int j = 0; j < candidate_count; j++)
     {
-      // if ranks[i] matches candidates[j] and 1 to it
-      if (candidates[ranks[i]] == candidates[j])
-        preferences[i][j]++;
+        if (candidates[ranks[i]] != candidates[j] && !check_used_names(used_names, candidates[j]))
+        {
+            preferences[ranks[i]][j]++;
+        }
     }
+    // add ranks[i] candidate to list of used names
+    used_names[i] = candidates[ranks[i]];
   }
+  return;
 }
 
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
-    // TODO
+  // initalize variables to compare candidate votes
+  int a, b = 0;
+    // loop over preferences loop
+    for (int i = 0; i < candidate_count; i++)
+    {
+      // loop inner preferences to compare candidates
+      for (int j = 0; i < candidate_count; j++)
+      {
+
+      }
+    }
     return;
 }
 
@@ -155,4 +173,15 @@ void print_winner(void)
 {
     // TODO
     return;
+}
+
+bool check_used_names(string used_names[], string name)
+{
+    // loop over used names
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (used_names[i] == name)
+            return true;
+    }
+    return false;
 }
