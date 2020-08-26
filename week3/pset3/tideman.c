@@ -197,11 +197,19 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // loop over pairs[i]
+    // loop over pairs[i] and set all edge cases in locked[i][j]
     for (int i = 0; i < pair_count; i++)
     {
-      // set locked[i][j] to true for each pairs[i] winner
       locked[pairs[i].winner][pairs[i].loser] = true;
+    }
+
+    // loop over pairs again and check if any edge cases made a cycle
+    for (int j = 0; j < pair_count; j++)
+    {
+      if (locked[pairs[j].winner][pairs[j].loser] && locked[pairs[j].loser][pairs[j].winner])
+      {
+        locked[pairs[j].winner][pairs[j].loser] = false;
+      }
     }
     return;
 }
@@ -232,4 +240,16 @@ void swap_pairs(int a, int b)
   pairs[a] = pairs[b];
   pairs[b] = temp;
   return;
+}
+
+bool is_edge_case(pair pair[])
+{
+  // loop over locked to check if submitted pair will create cycle
+  for (int i = 0; i < candidate_count; i++)
+  {
+    for (int j = 0; j < candidate_count; j++)
+    {
+      if ()
+    }
+  }
 }
