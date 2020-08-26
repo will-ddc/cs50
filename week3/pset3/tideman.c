@@ -126,10 +126,14 @@ void record_preferences(int ranks[])
     // loop over candidates to match candidate[j] to ranks[i]
     for (int j = 0; j < candidate_count; j++)
     {
-        if (candidates[ranks[i]] != candidates[j] && !check_used_names(used_names, candidates[j]))
-        {
-            preferences[ranks[i]][j]++;
-        }
+      if (candidates[rank[i]] == candidates[j])
+      {
+        preferences[ranks[i]][j] = 0;
+      }
+      if (candidates[ranks[i]] != candidates[j] && !check_used_names(used_names, candidates[j]))
+      {
+          preferences[ranks[i]][j]++;
+      }
     }
     // add ranks[i] candidate to list of used names
     used_names[i] = candidates[ranks[i]];
