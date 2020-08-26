@@ -217,7 +217,19 @@ void lock_pairs(void)
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
+    // loop through locked[i]
+    for (int i = 0; i < candidate_count; i++)
+    {
+      // loop through locked[i][j] to see source of graph
+      for (int j = 0; j < candidate_count; j++)
+      {
+        // find candidate who has no arrow pointing to them
+        if (!locked[j][i])
+        {
+          printf("%s\n", candidates[locked[j][i]]);
+        }
+      }
+    }
     return;
 }
 
@@ -240,16 +252,4 @@ void swap_pairs(int a, int b)
   pairs[a] = pairs[b];
   pairs[b] = temp;
   return;
-}
-
-bool is_edge_case(pair pair[])
-{
-  // loop over locked to check if submitted pair will create cycle
-  for (int i = 0; i < candidate_count; i++)
-  {
-    for (int j = 0; j < candidate_count; j++)
-    {
-      if ()
-    }
-  }
 }
